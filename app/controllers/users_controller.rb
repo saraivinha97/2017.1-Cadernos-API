@@ -5,14 +5,19 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+
+    exclude_columns = ['password_digest']
+    columns = User.attribute_names - exclude_columns
+    @users = User.select(columns).all
 
     render json: @users
   end
 
   # GET /users/1
   def show
-    @user = User.find(params[:id])
+    exclude_columns = ['password_digest']
+    columns = User.attribute_names - exclude_columns
+    @user = User.select(columns).find(params[:id])
     render json: @user
   end
 
@@ -44,6 +49,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    redirect_to action: 'index', status:200
   end
 
   private
@@ -55,7 +61,7 @@ class UsersController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def user_params
 
-      params.require(:user).permit(:name, :email, :email_confirmation, :password, :password_confirmation, :password_digest)
+      params.require(:user).permit(:name, :email, :email_confirmation, :password, :password_confirmation)
 
     end
 end
