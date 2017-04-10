@@ -21,7 +21,6 @@ gem 'jwt'
 
 gem 'simple_command'
 
-gem 'rails-controller-testing'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -52,6 +51,5 @@ group :production do
   gem 'pg'
 end
 
-gem 'rails-controller-testing'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
