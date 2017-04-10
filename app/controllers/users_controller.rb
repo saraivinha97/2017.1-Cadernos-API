@@ -6,19 +6,15 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
-
-    render json: @users
   end
 
   # GET /users/1
   def show
-    @user = User.find(params[:id])
-    render json: @user
+    @user
   end
 
   def books
     @books = @user.books.all
-    render json: @books
   end
 
   # POST /users
@@ -44,6 +40,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    redirect_to action: 'index', status:200
   end
 
   private
@@ -54,8 +51,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-
-      params.require(:user).permit(:name, :email, :email_confirmation, :password, :password_confirmation, :password_digest)
-
+      params.require(:user).permit(:name, :email, :email_confirmation, :password, :password_confirmation)
     end
 end
